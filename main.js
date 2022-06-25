@@ -2,8 +2,32 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
+let heartChange = {
+  '♡': FULL_HEART,
+  '♥': EMPTY_HEART
+}
 
+// Your JavaScript code goes here!
+function userAction(){
+  let likes = document.getElementsByClassName('like-glyph');
+  console.log(likes);
+  for(const like of likes){
+    like.addEventListener('click',(e) => {
+      mimicServerCall()
+      .then(()=> e.target.textContent = heartChange[e.target.textContent])
+      .catch(error => {
+        let modal = document.getElementById('modal')
+        modal.classList.remove('hiden')
+        modal.querySelector('h2').textContent = error
+        setTimeout(function(){
+          modal.classList.add('hidden')
+        },3000)
+    })
+  })
+  }
+}
+
+userAction()
 
 
 
